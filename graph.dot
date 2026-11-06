@@ -1,0 +1,142 @@
+digraph test_graph {
+	graph [rankdir=LR];
+	index_0	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 0</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 0</TD><TD>next: 0</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_0 -> index_0	[color=red,
+		constraint=false];
+	index_0 -> index_0	[color=blue,
+		constraint=false];
+	index_1	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 1</TD></TR><TR><TD COLSPAN= "2">value: 10</TD></TR><TR><TD>prev: 0</TD><TD>next: 2</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_0 -> index_1	[style=invis];
+	index_1 -> index_0	[color=blue,
+		constraint=false];
+	index_2	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 2</TD></TR><TR><TD COLSPAN= "2">value: 20</TD></TR><TR><TD>prev: 1</TD><TD>next: 3</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_1 -> index_2	[color=red,
+		constraint=false];
+	index_1 -> index_2	[style=invis];
+	index_2 -> index_1	[color=blue,
+		constraint=false];
+	index_3	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 3</TD></TR><TR><TD COLSPAN= "2">value: 30</TD></TR><TR><TD>prev: 2</TD><TD>next: 13</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_2 -> index_3	[color=red,
+		constraint=false];
+	index_2 -> index_3	[style=invis];
+	index_3 -> index_2	[color=blue,
+		constraint=false];
+	index_4	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 4</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 0</TD><TD>next: 14</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_3 -> index_4	[style=invis];
+	index_13	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 13</TD></TR><TR><TD COLSPAN= "2">value: 35</TD></TR><TR><TD>prev: 3</TD><TD>next: 5</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_3 -> index_13	[color=red,
+		constraint=false];
+	index_4 -> index_0	[color=blue,
+		constraint=false];
+	index_5	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 5</TD></TR><TR><TD COLSPAN= "2">value: 50</TD></TR><TR><TD>prev: 13</TD><TD>next: 6</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_4 -> index_5	[style=invis];
+	index_14	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 14</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 0</TD><TD>next: 15</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_4 -> index_14	[color=red,
+		constraint=false];
+	index_6	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 6</TD></TR><TR><TD COLSPAN= "2">value: 60</TD></TR><TR><TD>prev: 5</TD><TD>next: 7</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_5 -> index_6	[color=red,
+		constraint=false];
+	index_5 -> index_6	[style=invis];
+	index_5 -> index_13	[color=blue,
+		constraint=false];
+	index_6 -> index_5	[color=blue,
+		constraint=false];
+	index_7	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 7</TD></TR><TR><TD COLSPAN= "2">value: 70</TD></TR><TR><TD>prev: 6</TD><TD>next: 8</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_6 -> index_7	[color=red,
+		constraint=false];
+	index_6 -> index_7	[style=invis];
+	index_7 -> index_6	[color=blue,
+		constraint=false];
+	index_8	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 8</TD></TR><TR><TD COLSPAN= "2">value: 80</TD></TR><TR><TD>prev: 7</TD><TD>next: 9</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_7 -> index_8	[color=red,
+		constraint=false];
+	index_7 -> index_8	[style=invis];
+	index_8 -> index_7	[color=blue,
+		constraint=false];
+	index_9	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 9</TD></TR><TR><TD COLSPAN= "2">value: 90</TD></TR><TR><TD>prev: 8</TD><TD>next: 10</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_8 -> index_9	[color=red,
+		constraint=false];
+	index_8 -> index_9	[style=invis];
+	index_9 -> index_8	[color=blue,
+		constraint=false];
+	index_10	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 10</TD></TR><TR><TD COLSPAN= "2">value: 100</TD></TR><TR><TD>prev: 9</TD><TD>next: 11</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_9 -> index_10	[color=red,
+		constraint=false];
+	index_9 -> index_10	[style=invis];
+	index_10 -> index_9	[color=blue,
+		constraint=false];
+	index_11	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 11</TD></TR><TR><TD COLSPAN= "2">value: 110</TD></TR><TR><TD>prev: 10</TD><TD>next: 12</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_10 -> index_11	[color=red,
+		constraint=false];
+	index_10 -> index_11	[style=invis];
+	index_11 -> index_10	[color=blue,
+		constraint=false];
+	index_12	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 12</TD></TR><TR><TD COLSPAN= "2">value: 120</TD></TR><TR><TD>prev: 11</TD><TD>next: 0</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_11 -> index_12	[color=red,
+		constraint=false];
+	index_11 -> index_12	[style=invis];
+	index_12 -> index_0	[color=red,
+		constraint=false];
+	index_12 -> index_11	[color=blue,
+		constraint=false];
+	index_12 -> index_13	[style=invis];
+	index_13 -> index_3	[color=blue,
+		constraint=false];
+	index_13 -> index_5	[color=red,
+		constraint=false];
+	index_13 -> index_14	[style=invis];
+	index_14 -> index_0	[color=blue,
+		constraint=false];
+	index_15	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 15</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 14</TD><TD>next: 16</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_14 -> index_15	[color=red,
+		constraint=false];
+	index_14 -> index_15	[style=invis];
+	index_15 -> index_14	[color=blue,
+		constraint=false];
+	index_16	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 16</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 15</TD><TD>next: 17</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_15 -> index_16	[color=red,
+		constraint=false];
+	index_15 -> index_16	[style=invis];
+	index_16 -> index_15	[color=blue,
+		constraint=false];
+	index_17	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 17</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 16</TD><TD>next: 18</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_16 -> index_17	[color=red,
+		constraint=false];
+	index_16 -> index_17	[style=invis];
+	index_17 -> index_16	[color=blue,
+		constraint=false];
+	index_18	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 18</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 17</TD><TD>next: 19</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_17 -> index_18	[color=red,
+		constraint=false];
+	index_17 -> index_18	[style=invis];
+	index_18 -> index_17	[color=blue,
+		constraint=false];
+	index_19	[label=<<TABLE BORDER= "0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN= "2">index: 19</TD></TR><TR><TD COLSPAN= "2">value: -1</TD></TR><TR><TD>prev: 18</TD><TD>next: 0</TD></TR></TABLE>>,
+		shape=plaintext];
+	index_18 -> index_19	[color=red,
+		constraint=false];
+	index_18 -> index_19	[style=invis];
+	index_19 -> index_0	[color=red,
+		constraint=false];
+	index_19 -> index_18	[color=blue,
+		constraint=false];
+}
