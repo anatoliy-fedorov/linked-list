@@ -1,8 +1,6 @@
 #ifndef LIST_CONF_H
 #define LIST_CONF_H
 
-#define COLOR_FOR_NEXT "red"
-#define COLOR_FOR_PREV "blue"
 
 struct list_elem {
     int value;
@@ -51,6 +49,12 @@ const char* el_errors_message[EL_ERRORS_COUNT] {
 const size_t MIN_SIZE = 10;
 const int POISON_VALUE = -1;
 const size_t SIZE_OF_BUFFER = 1000;
- FILE* log_file = fopen("log_file.html", "w");
+FILE* log_file = fopen("log_file.html", "w");
+const char GREEN_COLOR[] = "green";
+const char GREY_COLOR[] = "grey";
+const char DEFAULT_COLOR[] = "white";
+const char COLOR_FOR_EDGE[] = "blue";
+const char COLOR_ZERO[] = "yellow";
+const char COLOR_FLAGS[] = "purple";
 
 #endif

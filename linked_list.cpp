@@ -31,6 +31,10 @@ void        make_edges          (Agraph_t*, Agnode_t**, linked_list*);
 FILE*       get_output_stream   ();
 int         get_size_of_file    (const char*);
 void        write_in_html       ();
+void        destroy_linked_list (linked_list*);
+void        add_first_free      (Agraph_t*, Agnode_t**, linked_list*);
+void        add_tail            (Agraph_t*, Agnode_t**, linked_list*);
+void        add_head            (Agraph_t*, Agnode_t**, linked_list*);
 
 int main() {
 
@@ -47,6 +51,7 @@ int main() {
     pop(&list, 3);
     pop(&list, 4);
     list_dump(&list, EL_NO_ERRORS);
+    destroy_linked_list(&list);
 
     return 0;
 }
@@ -68,6 +73,18 @@ errors_list init_linked_list(linked_list* list){
 
     assert(!verify_list(list));
     return verify_list(list);
+}
+
+void destroy_linked_list(linked_list* list) {
+    if (list == NULL) {
+        return;
+    }
+    free(list->list_array);
+    list->count_of_elem = 0;
+    list->head = 0;
+    list->tail = 0;
+    list->size = 0;
+    list->first_free = 0;
 }
 
 errors_list init_free_elems(linked_list* list) {
@@ -277,12 +294,18 @@ char* make_html_list_node (Agraph_t* graph, list_elem* elem, size_t index) {
     assert(graph);
 
     char temp_buffer[SIZE_OF_BUFFER] = "";
+    const char* color = DEFAULT_COLOR;
+
+    if (index == 0) color = COLOR_ZERO;
+    else if (elem->value == POISON_VALUE) color = GREY_COLOR;
+    else color = GREEN_COLOR;
+
     sprintf_s(temp_buffer, SIZE_OF_BUFFER,
-        "<TABLE BORDER= \"0\" CELLBORDER=\"1\" CELLSPACING=\"0\">"
+        "<TABLE BGCOLOR=\"%s\" BORDER= \"0\" CELLBORDER=\"1\" CELLSPACING=\"0\">"
         "<TR><TD COLSPAN= \"2\">index: %lld</TD></TR>"
         "<TR><TD COLSPAN= \"2\">value: %d</TD></TR>"
         "<TR><TD>prev: %lld</TD><TD>next: %lld</TD></TR>"
-      "</TABLE>", index, elem->value, elem->prev, elem->next);
+      "</TABLE>", color, index, elem->value, elem->prev, elem->next);
 
     return agstrdup_html(graph, temp_buffer);
 }
@@ -294,6 +317,9 @@ void print_picture (linked_list* list) {
     Agnode_t** nodes = (Agnode_t**)calloc(list->size, sizeof(Agnode_t*));
     make_nodes(graph, nodes, list);
     make_edges(graph, nodes, list);
+    //add_tail(graph, nodes, list);
+    //add_head(graph, nodes, list);
+    //add_first_free(graph, nodes, list);
 
     agsafeset(graph, "rankdir", "LR", "");
 
@@ -343,14 +369,21 @@ void make_edges (Agraph_t* graph, Agnode_t** nodes, linked_list* list) {
     for(size_t index = 0; index < list->size; index++) {
         ssize_t next = list->list_array[index].next;
         ssize_t prev = list->list_array[index].prev;
+        Agedge_t* edge_next = NULL;
 
-        Agedge_t* edge_next = agedge(graph, nodes[index], nodes[next], NULL, 1);
-        agsafeset(edge_next, "color", COLOR_FOR_NEXT, "");
+        if (list->list_array[next].prev == index) {
+            edge_next = agedge(graph, nodes[index], nodes[next], NULL, 1);
+            agsafeset(edge_next, "dir", "both", "");
+        }
+        else {
+            edge_next = agedge(graph, nodes[index], nodes[next], NULL, 1);
+        }
+        agsafeset(edge_next, "color", COLOR_FOR_EDGE, "");
         agsafeset(edge_next, "constraint", "false", "");
-        Agedge_t* edge_prev = agedge(graph, nodes[index], nodes[prev], NULL, 1);
-        agsafeset(edge_prev, "color", COLOR_FOR_PREV, "");
-        agsafeset(edge_prev, "constraint", "false", "");
+        //agsafeset(graph, "splines", "ortho", "");
+        agsafeset(graph, "splines", "polyline", "");
     }
+
     for(size_t index = 0; index < list->size - 1; index++) {
         Agedge_t* edge = agedge(graph, nodes[index], nodes[index + 1], NULL, 1);
         agsafeset(edge, "style", "invis", "");
@@ -370,4 +403,59 @@ int get_size_of_file(const char* name_file) {
     return inf_file.st_size;
 }
 
+void add_head(Agraph_t* graph, Agnode_t** nodes, linked_list* list) {
+    assert(graph);
+    assert(nodes);
 
+    Agnode_t* node_head = agnode(graph, "node_head", 1);
+    agsafeset(node_head, "shape", "box", "");
+    agsafeset(node_head, "color", COLOR_FLAGS, "");
+
+    Agraph_t* subgraph_head = agsubg(graph, "subgraph_head", 1);
+    agsafeset(subgraph_head, "rank", "same", "");
+
+    agsubnode(subgraph_head, node_head, 1);
+    agsubnode(subgraph_head, nodes[list->head], 1);
+
+    //Agedge_t* head_edge = agedge(graph, node_head, nodes[list->head], NULL, 1);
+    //agsafeset(head_edge, "color", COLOR_FLAGS, "");
+    //agsafeset(head_edge, "headport", "n", "");
+}
+
+void add_tail(Agraph_t* graph, Agnode_t** nodes, linked_list* list) {
+    assert(graph);
+    assert(nodes);
+
+    Agnode_t* node_tail = agnode(graph, "node_tail", 1);
+    agsafeset(node_tail, "shape", "box", "");
+    agsafeset(node_tail, "color", COLOR_FLAGS, "");
+
+    Agraph_t* subgraph_tail = agsubg(graph, "subgraph_tail", 1);
+    agsafeset(subgraph_tail, "rank", "same", "");
+
+    agsubnode(subgraph_tail, node_tail, 1);
+    agsubnode(subgraph_tail, nodes[list->tail], 1);
+
+    //Agedge_t* tail_edge = agedge(graph, node_tail, nodes[list->tail], NULL, 1);
+    //agsafeset(tail_edge, "color", COLOR_FLAGS, "");
+    //agsafeset(tail_edge, "headport", "n", "");
+}
+
+void add_first_free(Agraph_t* graph, Agnode_t** nodes, linked_list* list) {
+    assert(graph);
+    assert(nodes);
+
+    Agnode_t* node_first_free = agnode(graph, "node_first_free", 1);
+    agsafeset(node_first_free, "shape", "box", "");
+    agsafeset(node_first_free, "color", COLOR_FLAGS, "");
+
+    Agraph_t* subgraph_first_free = agsubg(graph, "subgraph_first_free", 1);
+    agsafeset(subgraph_first_free, "rank", "same", "");
+
+    agsubnode(subgraph_first_free, node_first_free, 1);
+    agsubnode(subgraph_first_free, nodes[list->first_free], 1);
+
+    //Agedge_t* first_free_edge = agedge(graph, node_first_free, nodes[list->first_free], NULL, 1);
+    //agsafeset(first_free_edge, "color", COLOR_FLAGS, "");
+    //agsafeset(first_free_edge, "headport", "n", "");
+}
